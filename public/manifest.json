@@ -1,0 +1,30 @@
+{
+    "name": "JOUAN-STOCK",
+    "short_name": "StockApp",
+    "background_color": "#6777ef",
+    "display": "fullscreen",
+    "description": "Application de gestion de stock simple et rapide pour suivre les produits, les entrées et les sorties.",
+    "theme_color": "#6777ef",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "assets/img/logo/logo-ap.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "assets/img/logo/Capture d’écran du 2025-10-07 11-31-40.png",
+            "sizes": "656x345",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "assets/img/logo/Capture d’écran du 2025-10-07 11-31-40.png",
+            "sizes": "656x345",
+            "type": "image/png"
+        }
+    ]
+
+}
