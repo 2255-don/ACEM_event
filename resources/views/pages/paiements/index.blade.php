@@ -9,23 +9,23 @@
        <a href="{{ route('paiements.create') }}" class="btn btn-success">Nouveau paiement</a>
    @endcan 
 </div>
+@can('access-admin')
 
-<form method="get" class="row g-2 mb-3">
-    <div class="col-auto">
-        <select name="user_id" class="form-select">
-            <option value="">-- Filtrer par utilisateur --</option>
-            @foreach($users as $u)
-                <option value="{{ $u->id }}" @selected(request('user_id') == $u->id)>{{ $u->nom }} {{ $u->prenom }}</option>
-            @endforeach
-        </select>
-    </div>
-    @can('access-admin')
+    <form method="get" class="row g-2 mb-3">
         <div class="col-auto">
-            <button class="btn btn-primary">Filtrer</button>
-            <a href="{{ route('paiements.index') }}" class="btn btn-outline-secondary">Effacer</a>
+            <select name="user_id" class="form-select">
+                <option value="">-- Filtrer par utilisateur --</option>
+                @foreach($users as $u)
+                    <option value="{{ $u->id }}" @selected(request('user_id') == $u->id)>{{ $u->nom }} {{ $u->prenom }}</option>
+                @endforeach
+            </select>
         </div>
+            <div class="col-auto">
+                <button class="btn btn-primary">Filtrer</button>
+                <a href="{{ route('paiements.index') }}" class="btn btn-outline-secondary">Effacer</a>
+            </div>
+    </form>
     @endcan
-</form>
 
 <div class="card shadow-sm">
     <div class="card-body p-0">

@@ -52,10 +52,10 @@
         <div class="w-px-400 mx-auto">
           <!-- Logo -->
           <div class="app-brand mb-4">
-             <img src="{{ asset('assets/img/logo/Copilot_20250913_130221.png') }}" alt="Logo Jouan-Stock" class="img-fluid mx-auto d-block" style="max-width: 200px;">
+             <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo ACEM-EVENT" class="img-fluid mx-auto d-block" style="max-width: 200px;">
           </div>
           <!-- /Logo -->
-          <h3 class="mb-1 fw-bold">Bienvenue sur Jouan-Stock👋</h3>
+          <h3 class="mb-1 fw-bold">Bienvenue sur ACEM-EVENT👋</h3>
           <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
           <form id="formAuthentication" class="mb-3" action="{{route('auth.doLogin')}}" method="POST">

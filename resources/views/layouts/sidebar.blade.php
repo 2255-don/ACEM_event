@@ -3,11 +3,11 @@
   
   <a href="{{ route('admin.dashboard') }}" class=" d-flex align-items-center justify-content-center">
     <span class="app-brand-logo demo">
-      <img src="{{ asset('assets/img/logo/logo-ap.png') }}"
-           alt="Logo Jouan-Stock"
+      <img src="{{ asset('assets/img/logo/logo.png') }}"
+           alt="Logo ACEM-event"
            class="img-fluid mx-auto d-block" style="max-width: 30px;">
     </span>
-    <span class="app-brand-text demo menu-text fw-bold ms-2">Jouan-Stock</span>
+    <span class="app-brand-text demo menu-text fw-bold ms-2">ACEM-EVENT</span>
   </a>
 
   <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
