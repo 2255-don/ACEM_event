@@ -283,17 +283,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <label class="form-label mb-0">
-                                        <i class="ti ti-building"></i>Entreprise 
-                                    </label>
-                                </div>
-                                @error('roles_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
                         </div>
 
                         <!-- Actions -->
