@@ -26,25 +26,25 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $user = Auth::user();
 
-           if ($user) {
-                if ($user->isSuperAdmin()) {
-                   $view->with([
-                        'entreprises' => Entreprise::all(),
-                        'entreprise' => null,
-                    ]);
-                } else {
-                    $view->with([
-                        'entreprises' => collect([$user->entreprise]),
-                        'entreprise' => $user->entreprise ?? null,
-                    ]);
-                }
-            } else {
-                // Aucun utilisateur connecté
-                $view->with([
-                    'entreprises' => collect([]),
-                    'entreprise' => null,
-                ]);
-            }
+        //    if ($user) {
+        //         if ($user->isSuperAdmin()) {
+        //            $view->with([
+        //                 'entreprises' => Entreprise::all(),
+        //                 'entreprise' => null,
+        //             ]);
+        //         } else {
+        //             $view->with([
+        //                 'entreprises' => collect([$user->entreprise]),
+        //                 'entreprise' => $user->entreprise ?? null,
+        //             ]);
+        //         }
+        //     } else {
+        //         // Aucun utilisateur connecté
+        //         $view->with([
+        //             'entreprises' => collect([]),
+        //             'entreprise' => null,
+        //         ]);
+        //     }
         });
     }
 }

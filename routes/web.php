@@ -5,6 +5,9 @@ use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbonnementController;
+use App\Http\Controllers\AdminDashboardController;
+use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function (){
     return view('welcome');
@@ -17,7 +20,7 @@ Route::get('/', function (){
 
 
 // Protection par middleware (auth)
-// Route::middleware(['auth', 'check.licence', 'feature.access'])->name('admin.')->group(function () {
+Route::middleware(['auth', 'can:access-all'])->group(function () {
 
     // Route::get('/reset-password', [AuthController::class, 'logout'])->name('resetPasswordForm');
     // Route::post('/resetPassword-Store', [AuthController::class, 'logout'])->name('resetPasswordStore');s
@@ -28,21 +31,13 @@ Route::get('/', function (){
     Route::get('/password/change', [AuthController::class, 'passwordChangeForm'])->name('password-change');
     Route::post('/password/change', [AuthController::class, 'passwordChangeStore'])->name('password-change-store');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Dashboard
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard.index'); // page principale
-    })->name('dashboard');
-
+   
     /*
     |--------------------------------------------------------------------------
     | Profils
     |--------------------------------------------------------------------------
     */
-    Route::prefix('profil')->name('profil.')->group(function () {
+    Route::prefix('profil')->middleware(['can:access-admin'])->name('profil.')->group(function () {
         Route::get('/', [ProfilController::class, 'profil'])->name('index');
         Route::get('/create/{id?}', [ProfilController::class, 'createForm'])->name('create');
         Route::post('/store/{id?}', [ProfilController::class, 'storeOrUpdate'])->name('store');
@@ -54,7 +49,7 @@ Route::get('/', function (){
     | Utilisateurs
     |--------------------------------------------------------------------------
     */
-    Route::prefix('user')->name('user.')->group(function () {
+    Route::prefix('user')->middleware(['can:access-superadmin'])->name('user.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/create/{id?}', [UserController::class, 'createForm'])->name('form');
         Route::get('/reset/{id?}', [UserController::class, 'resetUser'])->name('reset');
@@ -75,20 +70,26 @@ Route::get('/', function (){
         Route::get('/user/{userId}/status-view', [PaiementController::class, 'userStatusView'])->name('paiements.user.status');
         // API endpoints (déjà fournis précédemment)
         // Route::post('/paiements', [PaiementController::class, 'store'])->name('paiements.store');
+    });
+
+    Route::prefix('abonnements')->middleware(['can:access-admin'])->group(function () {
+
+
+    Route::get('/create', [AbonnementController::class, 'create'])->name('abonnements.create');
+    Route::post('/store', [AbonnementController::class, 'store'])->name('abonnements.store');
+    Route::get('/{id}/edit', [AbonnementController::class, 'edit'])->name('abonnements.edit');
+    Route::put('/{id}', [AbonnementController::class, 'update'])->name('abonnements.update');
+    Route::delete('/{id}', [AbonnementController::class, 'destroy'])->name('abonnements.destroy');
+     /*
+    |--------------------------------------------------------------------------
+    | Dashboard
+    |--------------------------------------------------------------------------
+    */
+   
+
+    
+    });
+Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
 });
-
-use App\Http\Controllers\AbonnementController;
-use App\Http\Controllers\AdminDashboardController;
-
-    Route::get('abonnements/create', [AbonnementController::class, 'create'])->name('abonnements.create');
-    Route::post('abonnements', [AbonnementController::class, 'store'])->name('abonnements.store');
-    Route::get('abonnements/{id}/edit', [AbonnementController::class, 'edit'])->name('abonnements.edit');
-    Route::put('abonnements/{id}', [AbonnementController::class, 'update'])->name('abonnements.update');
-    Route::delete('abonnements/{id}', [AbonnementController::class, 'destroy'])->name('abonnements.destroy');
-
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-
- 
-
-// });
     

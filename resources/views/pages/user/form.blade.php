@@ -190,6 +190,17 @@
                 <div class="form-body">
                     <form id="userForm" action="{{$user && $user->id ? route('user.store', ['id' => $user->id]) : route('user.store') }}" method="POST">
                         @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <h5 class="mb-2">Veuillez corriger les erreurs suivantes :</h5>
+                                <ul class="mb-0 ps-3">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         
                         <!-- Informations personnelles -->
                         <div class="row mb-4">
@@ -203,7 +214,7 @@
                                 <label class="form-label">
                                     <i class="ti ti-user"></i>Nom
                                 </label>
-                                <input name="nom" value="{{ $user->nom ?? '' }}" 
+                                <input name="nom" value="{{ $user->nom ?? old('nom') }}" 
                                        class="form-control @error('nom') is-invalid @enderror" 
                                        placeholder="Entrez le nom"
                                        required>
@@ -216,7 +227,7 @@
                                 <label class="form-label">
                                     <i class="ti ti-user"></i>Prénom
                                 </label>
-                                <input name="prenom" value="{{ $user->prenom ?? '' }}" 
+                                <input name="prenom" value="{{ $user->prenom ?? old('prenom') }}" 
                                        class="form-control @error('prenom') is-invalid @enderror" 
                                        placeholder="Entrez le prénom"
                                        >
@@ -238,7 +249,7 @@
                                 <label class="form-label">
                                     <i class="ti ti-mail"></i>Adresse email
                                 </label>
-                                <input type="email" name="email" value="{{ $user->email ?? '' }}" 
+                                <input type="email" name="email" value="{{ $user->email ?? old('email') }}" 
                                        class="form-control @error('email') is-invalid @enderror" 
                                        placeholder="exemple@email.com"
                                        required>

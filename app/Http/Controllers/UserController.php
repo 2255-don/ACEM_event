@@ -13,6 +13,8 @@ use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -64,9 +66,10 @@ class UserController extends Controller
     {
         try{
             $data =[
-            'password' => 'azerty',
             'password_changed' => false
         ];
+        $plain = 'azerty';
+        $data['password'] = Hash::make($plain);
         DB::transaction(function () use ($data, $id) {
            $user = User::updateOrCreate(['id' => $id], $data); 
         });
@@ -86,10 +89,9 @@ class UserController extends Controller
             $id = $id ?? null;
             $data = $this->validateUserForm($request->all(), $id);
             // dd($data);
-            if(!$id){
-            $data['password'] = $data['password'] ?? $data['password'] = '12345678';
-
-            }
+            // if(!$id){
+            $data['password'] = Hash::make($data['password']) ?? $data['password'] = Hash::make('azerty');
+            // }
             // dd($data);
             DB::transaction(function () use ($data, $id) {
                 
@@ -103,10 +105,17 @@ class UserController extends Controller
             $id ? $m='Utilisateur midifier avec succès': $m='Utilisateur créé avec succès !';
             session()->flash('success', $m);
             return redirect()->route('user.index');
-        }catch(Exception $e){
-            log::error('error survenu  lors de l\'insertion'.$e->getMessage());
+        }catch (ValidationException $e) {
+            // RENVOIE les erreurs de validation vers la vue et garde les inputs
+            return back()
+                ->withErrors($e->errors())   // erreurs affichées par $errors->any() / @error
+                ->withInput();               // garde les champs remplis
+        } catch (\Throwable $e) {
+            Log::error('Erreur lors de l\'insertion : '.$e->getMessage());
 
-            return back()->with('error', 'error survenu  lors de l\'insertion, veuillez contactez le technicien');
+            return back()
+                ->with('error', 'Une erreur est survenue lors de l\'insertion. Veuillez contacter le technicien.')
+                ->withInput();
         }
 
     }

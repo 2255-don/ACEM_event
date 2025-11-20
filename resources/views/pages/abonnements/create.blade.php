@@ -9,16 +9,25 @@
 
         <form action="{{ route('abonnements.store') }}" method="post">
             @csrf
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <h5 class="mb-2">Veuillez corriger les erreurs suivantes :</h5>
+                    <ul class="mb-0 ps-3">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="mb-3">
                 <label class="form-label">Utilisateur</label>
-                <select name="user_id" class="form-select @error('user_id') is-invalid @enderror" required>
+                <select name="users_id" class="form-select @error('users_id') is-invalid @enderror" required>
                     <option value="">-- Choisir --</option>
                     @foreach($users as $u)
-                        <option value="{{ $u->id }}" @selected(old('user_id') == $u->id)>{{ $u->nom }} {{ $u->prenom }}</option>
+                        <option value="{{ $u->id }}" @selected(old('users_id') == $u->id)>{{ $u->nom }} {{ $u->prenom }}</option>
                     @endforeach
                 </select>
-                @error('user_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                @error('users_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
             <div class="mb-3">

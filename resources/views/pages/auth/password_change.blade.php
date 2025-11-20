@@ -54,7 +54,7 @@
           <h3 class="mb-1 fw-bold">Bienvenue sur Jouan-Stock👋</h3>
           <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-          <form id="formAuthentication" class="mb-3" action="{{route('admin.password-change-store')}}" method="POST">
+          <form id="formAuthentication" class="mb-3" action="{{route('password-change-store')}}" method="POST">
             @csrf
             
             <div class="mb-3 form-password-toggle">

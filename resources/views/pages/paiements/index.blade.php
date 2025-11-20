@@ -5,7 +5,9 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h3>Paiements</h3>
-    <a href="{{ route('paiements.create') }}" class="btn btn-success">Nouveau paiement</a>
+   @can('access-admin')
+       <a href="{{ route('paiements.create') }}" class="btn btn-success">Nouveau paiement</a>
+   @endcan 
 </div>
 
 <form method="get" class="row g-2 mb-3">
@@ -17,10 +19,12 @@
             @endforeach
         </select>
     </div>
-    <div class="col-auto">
-        <button class="btn btn-primary">Filtrer</button>
-        <a href="{{ route('paiements.index') }}" class="btn btn-outline-secondary">Effacer</a>
-    </div>
+    @can('access-admin')
+        <div class="col-auto">
+            <button class="btn btn-primary">Filtrer</button>
+            <a href="{{ route('paiements.index') }}" class="btn btn-outline-secondary">Effacer</a>
+        </div>
+    @endcan
 </form>
 
 <div class="card shadow-sm">

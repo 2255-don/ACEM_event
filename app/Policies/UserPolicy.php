@@ -24,11 +24,11 @@ class UserPolicy
 
     public function adminAccess(User $user)
     {
-        return in_array($user->profil->libelle, ['Admin','Super-admin']);
+        return in_array($user->profil->libelle, ['admin','Super-admin']);
     }
 
     public function allAccess(User $user)
     {
-        return in_array($user->profil->libelle, ['Employer', 'Admin','Super-admin']);
+        return in_array($user->profil->libelle, ['membre', 'admin','Super-admin']);
     }
 }

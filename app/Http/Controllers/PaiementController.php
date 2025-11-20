@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\PaymentRecordingService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,7 +25,12 @@ class PaiementController
      */
     public function index(Request $request)
     {
-        $query = Paiement::with('user')->orderBy('created_at', 'DESC');
+        if(Auth::user()->profil->libelle == 'Super-admin' || Auth::user()->profil->libelle == 'admin'){
+
+            $query = Paiement::with('user')->orderBy('created_at', 'DESC');
+        }else{
+            $query = Paiement::with('user')->where('users_id', Auth::user()->id)->orderBy('created_at', 'DESC');
+        }
 
         if ($request->filled('users_id')) {
             $query->where('users_id', $request->users_id);
@@ -44,7 +50,7 @@ class PaiementController
         $validator = Validator::make($request->all(), [
             'users_id' => ['required', 'exists:users,id'],
             'montant' => ['required', 'numeric', 'min:1'],
-            'date'    => ['nullable', 'date'],
+            'date'    => ['nullable', 'date', 'after_or_equal:today'],
         ]);
 
         if ($validator->fails()) {
@@ -171,7 +177,12 @@ class PaiementController
      */
     public function indexView(Request $request)
     {
-        $query = Paiement::with('user')->orderBy('created_at', 'DESC');
+        if(Auth::user()->profil->libelle == 'Super-admin' || Auth::user()->profil->libelle == 'admin'){
+
+            $query = Paiement::with('user')->orderBy('created_at', 'DESC');
+        }else{
+            $query = Paiement::with('user')->where('users_id', Auth::user()->id)->orderBy('created_at', 'DESC');
+        }
         if ($request->filled('users_id')) {
             $query->where('users_id', $request->users_id);
         }

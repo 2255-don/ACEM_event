@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Licence;
 use Exception;
-
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -32,7 +34,7 @@ class AuthController extends Controller
                 //     ->update(['etat' => 'expired']);
 
                 if(!Auth::user()->password_changed){
-                    return redirect()->route('admin.password-change');
+                    return redirect()->route('password-change');
                 }
                 session()->flash('success', "connexion reussi !");
                 return redirect()->route('admin.dashboard');
@@ -81,7 +83,7 @@ class AuthController extends Controller
                     'remember_token' => Str::random(60),
                 ])->save();
 
-                event(new PasswordReset($user));
+                event(new PasswordResett($user));
             }
         );
 
@@ -106,7 +108,9 @@ class AuthController extends Controller
 
         try{
             $user = Auth::user();
-            $password = $data['password'];
+            $password = Hash::make($data['password']);
+            // $data['password'] = Hash::make($plain);
+
             DB::transaction(fn() => $user->update([
                 'password' => $password,
                 'password_changed' => true,

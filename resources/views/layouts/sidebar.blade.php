@@ -28,23 +28,27 @@
     </li>
     {{-- @can('access-superadmin') --}}
     <!-- user -->
-    <li class="menu-item {{ Request::routeIs('user.*') ? 'active' : '' }}">
-      <a href="{{ route('user.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons ti ti-users"></i>
-        <div>Utilisateurs</div>
-      </a>
-    </li>
+    @can('access-superadmin')
+      <li class="menu-item {{ Request::routeIs('user.*') ? 'active' : '' }}">
+        <a href="{{ route('user.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-users"></i>
+          <div>Utilisateurs</div>
+        </a>
+      </li>
+      @endcan
     <li class="menu-item {{ Request::routeIs('paiements.*') ? 'active' : '' }}">
       <a href="{{ route('paiements.index') }}" class="menu-link">
         <i class="menu-icon tf-icons ti ti-cash"></i>
         <div>Paiement</div>
       </a>
     </li>
-    <li class="menu-item {{ Request::routeIs('abonnements.*') ? 'active' : '' }}">
+    @can('access-admin')
+      <li class="menu-item {{ Request::routeIs('abonnements.*') ? 'active' : '' }}">
       <a href="{{ route('abonnements.create') }}" class="menu-link">
         <i class="menu-icon tf-icons ti ti-building-store"></i>
         <div>Abonnement</div>
       </a>
     </li>
+    @endcan
   </ul>
 </aside>

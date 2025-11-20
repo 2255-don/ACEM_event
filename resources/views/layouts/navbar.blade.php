@@ -40,8 +40,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            {{-- <span class="fw-semibold d-block">{{Auth::user()->nom}} {{Auth::user()->prenom}}</span>
-                            <small class="text-muted">{{Auth::user()->profil->libelle}}</small> --}}
+                            <span class="fw-semibold d-block">{{Auth::user()->nom}} {{Auth::user()->prenom}}</span>
+                            <small class="text-muted">{{Auth::user()->profil->libelle}}</small>
                           </div>
                         </div>
                       </a>

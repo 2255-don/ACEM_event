@@ -31,7 +31,7 @@
 
             <div class="mb-3">
                 <label for="date" class="form-label">Date d'enregistrement (optionnelle)</label>
-                <input type="date" id="date" name="date" value="{{ old('date') }}" class="form-control">
+                <input type="date" id="date" name="date" value="{{ old('date') }}" min="{{ now()->format('Y-m-d') }}" class="form-control">
                 <div class="form-text">Laisser vide = aujourd'hui.</div>
             </div>
 
