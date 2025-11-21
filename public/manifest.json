@@ -1,10 +1,10 @@
 {
     "name": "ACEM-EVENT",
     "short_name": "ACEM",
-    "background_color": "#6777ef",
+    "background_color": "light",
     "display": "fullscreen",
     "description": "Application de gestion de stock simple et rapide pour suivre les produits, les entrées et les sorties.",
-    "theme_color": "#6777ef",
+    "theme_color": "light",
     "start_url": "/",
     "icons": [
         {
