@@ -8,7 +8,7 @@
 <meta name="description" content="" />
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ asset('assets/img/logo/logo-ap.png') }}">
+<link rel="icon" type="image/png" href="{{ asset('assets/img/logo/logo.png') }}">
 
 
 <link rel="manifest" href="/manifest.json">
