@@ -6,7 +6,8 @@
   <title>ACEM — Agence de Communication Événementielle et Marketing | Baguineda</title>
   <meta name="description" content="ACEM, agence de communication événementielle et marketing à Baguineda. Organisation d'événements mémorables, stratégies de communication percutantes et marketing digital innovant.">
   <meta name="keywords" content="agence événementielle, communication marketing, Baguineda, Mali, organisation événements, stratégie digitale, branding">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="{{asset('manifest.json')}}">
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/logo/logo-ap.png') }}">
   <link rel="canonical" href="https://acem-event.duckdns.org/">
 
   <!-- Open Graph / Social -->
